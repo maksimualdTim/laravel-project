@@ -15,3 +15,4 @@ RUN composer install --no-scripts --no-interaction
 COPY ./ ./
 RUN chmod -R 775 /var/www/bootstrap
 RUN chmod -R 775 /var/www/storage
+RUN chown -R www-data:www-data /var/www
