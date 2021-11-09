@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContactController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/main', [ArticleController::class, 'index']);
+Route::get('/contact', [ContactController::class,'index']);
+Route::get('/article', function () {
+    return view('article');
 });
+Route::post('/article', [ArticleController::class, 'create']);
