@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\ContactController;
-use App\Models\Article;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/main', [ArticleController::class, 'index']);
-Route::get('/contact', [ContactController::class,'index']);
-Route::get('/article', function () {
-    return view('article');
+
+Route::get('/', function () {
+    return view('main');
 });
-Route::post('/article', [ArticleController::class, 'create']);
+Route::get('/articles', [ArticleController::class,'index']);
+Route::get('/articles/create', [ArticleController::class,'create']);
+Route::get('/articles/{id}', [ArticleController::class,'view']);
+Route::post('/articles', [ArticleController::class, 'store']);
+
+Route::get('/about', function () {
+    $contact=[
+        'adres'=>'Большая семеновская',
+        'tel'=>'8(495)232-2323',
+        'email'=>'@mospolitech.ru'
+    ];
+
+    return view('about',['contact' => $contact]);
+});

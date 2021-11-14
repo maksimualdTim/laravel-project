@@ -1,11 +1,16 @@
 @extends('layouts.layout')
 @section('content')
-<h1>Article</h1>
-    <form method="post" >
-        @csrf 
-        <input placeholder="Введите имя" id="name" name="name" type="text" style="border: 1px solid black;">
-        <input placeholder="Введите текст" id="short_text" name="short_text" type="text" style="border: 1px solid black;">
-        <input id="data_create" name="data_create"  type="date"  style="border: 1px solid black;">
+
+    <div>
+
+    <h1>О нас</h1>
+        <p>Lorem Ipsum</p>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+</p>
+
+    </div>
+    <form method="post"> 
+        @csrf
         <button type="submit">Отправить</button>
     </form>
 @endsection
