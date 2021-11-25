@@ -28,5 +28,4 @@
             <button class="btn btn-primary">Отправить</button>
         </form>
     </div>
-
 @endsection

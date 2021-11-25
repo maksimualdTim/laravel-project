@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCommentsController;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
