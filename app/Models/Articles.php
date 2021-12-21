@@ -10,6 +10,6 @@ class Articles extends Model
     use HasFactory;
 
     public function comments(){
-        return $this->hasMany(ArticleComment::class, 'article_id');
+        return $this->hasMany(ArticleComment::class,'article_id');
     }
 }

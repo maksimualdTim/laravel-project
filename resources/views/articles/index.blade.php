@@ -7,10 +7,12 @@
                 @foreach($articles as $article)
                     <a href="/articles/{{$article->id}}" class="list-group-item list-group-item-action">{{$article->name}}</a>
                 @endforeach
-                <a class="btn btn-primary" href="/articles/create">Добавить статью</a>
+                <a class="btn btn-primary" href="/articles/create">Создать</a>
             </div>
         </div>
     </div>
+
     <br>
-    {{ $articles->links()}}
+    {{ $articles->links() }}
+
 @endsection

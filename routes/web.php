@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ArticleCommentsController;
+use App\Models\User;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,29 +21,36 @@ use App\Http\Controllers\ArticleCommentsController;
 
 
 Route::get('/', function () {
+    // $testMail = new App\Mail\TestMail('hello');
+    // Mail::send($testMail);
     return view('main');
 });
-Route::get('/articles', [ArticleController::class,'index']);
-Route::get('/articles/create', [ArticleController::class,'create']);
-Route::get('/articles/{id}', [ArticleController::class,'view']);
-Route::post('/articles', [ArticleController::class, 'store']);
+Route::group(['prefix' => '/articles', 'middleware' => 'auth'], function () {
+    Route::get('', [ArticleController::class,'index']);
+    Route::get('/create', [ArticleController::class,'create'])->name('create');
+    Route::get('/{id}', [ArticleController::class,'view'])->name('view');
+    Route::get('/{id}/update', [ArticleController::class,'edit']);
+    Route::get('/{id}/delete', [ArticleController::class,'destroy']);
+    Route::post('/{id}/update', [ArticleController::class,'store']);
+    Route::post('', [ArticleController::class, 'store']);
+  });
+
+Route::group(['prefix'=>'comment'], function(){
+    Route::get('',[ArticleCommentsController::class, 'index'])->name('index');
+    Route::get('/{id}/accept', [ArticleCommentsController::class, 'accept']);
+    Route::get('/{id}/reject', [ArticleCommentsController::class, 'destroy']);
+    Route::post('/{id}/create', [ArticleCommentsController::class, 'store']);
+});
+
+
+Route::get('/registration', [AuthController::class, 'index']);
+Route::get('/auth/signin', [AuthController::class, 'login'])->name('login');
+Route::get('/signout', [AuthController::class, 'signout']);
+Route::post('/auth/registration', [AuthController::class, 'registration']);
+Route::post('/auth/signin', [AuthController::class, 'customLogin']);
 Route::post('articles/{id}/comment', [ArticleCommentsController::class, 'store']);
 
-// Route::post('articles/{id}/comment', function ($id){
-//     $article = App\Models\Articles::find($id);
-//     if ($article){
-//         $comment_title = request('comment_title');
-//         $comment = request('comment');
-//         if ($comment && $comment_title){
-//             $new_comment = new App\Models\ArticleComment();
-//             $new_comment->title = $comment_title;
-//             $new_comment->comment = $comment;
-//             $new_comment->article()->associate($article);
-//             $new_comment->save();
-//             return redirect('articles/'.$id);
-//         }
-//     }
-// });
+
 
 Route::get('/about', function () {
     $contact=[
@@ -48,5 +59,6 @@ Route::get('/about', function () {
         'email'=>'@mospolitech.ru'
     ];
 
-    return view('about',['contact' => $contact]);
+    return view('about',['contact' => $contact,]);
 });
+?>

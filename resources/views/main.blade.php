@@ -1,9 +1,8 @@
 @extends('layouts.layout')
 @section('content')
 
-    <div>
+    <h1>Hello</h1>
+    <!-- <p>{{session('msg')}}</p> -->
 
-    <h1>Привет</h1>
-    </div>
 @endsection
 
